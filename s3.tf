@@ -1,5 +1,11 @@
-# Create an S3 bucket
-resource "aws_s3_bucket" "my_bucket" {
+# S3 bucket for lab-1
+resource "aws_s3_bucket" "lab-1" {
   for_each = toset(var.bucket_name)
-  bucket   = each.value
+  bucket = each.value
+   tags = merge (
+    var.common_tag,
+    {
+      Name = each.value
+    }
+   )
 }
